@@ -1,0 +1,10 @@
+
+w
+java:S1192N"UDefine a constant instead of duplicating this literal "Invalid input format" 3 times.(ÚŸÂÍüÿÿÿÿ8İë„ÜÚ1
+f
+java:S20953"JUse try-with-resources or close this "ServerSocket" in a "finally" clause.(Ëò8Ì“…ÜÚ1
+L
+java:S20931"*Change this "try" to a try-with-resources.(¡»¢üùÿÿÿÿ8ˆì„ÜÚ1
+h	java:S128l"LEnd this switch case with an unconditional break, return or throw statement.(‰‰Ê8‹ì„ÜÚ1
+B
+java:S2116q"%Use "Arrays.toString(array)" instead.(€¯é8Œì„ÜÚ1
