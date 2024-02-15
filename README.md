@@ -4,6 +4,7 @@
 
 1. Programmeringsspråk og tråder
 2. Asynkrone kall - Workers & Event-loops
-3. ...
+3. Sockets + Web-tjener
+4. ...
 
 ### (WIP)
