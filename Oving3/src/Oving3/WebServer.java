@@ -1,3 +1,5 @@
+package Oving3;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -10,10 +12,10 @@ public class WebServer {
   public static void main(String[] args) {
     final int Port = 80;
     try (ServerSocket serverSocket = new ServerSocket(Port)) {
-      System.out.println("WebServer started. Listening on port " + Port);
+      System.out.println("Oving3.WebServer started. Listening on port " + Port);
       while (true) {
         Socket clientSocket = serverSocket.accept();
-        System.out.println("Client connected: " + clientSocket + "\n");
+        System.out.println("Oving3.Client connected: " + clientSocket + "\n");
         System.out.println("IP:port - " + clientSocket.getInetAddress().getHostAddress() + ":" + clientSocket.getPort() + "\n");
 
         Thread webServerThread = new Thread(new WebServerThread(clientSocket));
@@ -37,9 +39,9 @@ public class WebServer {
         PrintWriter output = new PrintWriter(clientSocket.getOutputStream(), true);
 
         StringBuilder requestHeader = new StringBuilder();
-        String lines;
-        while ((lines = input.readLine()) != null && !lines.isEmpty()){
-          requestHeader.append("<LI>").append(lines).append("</LI>");
+        String inputLines;
+        while ((inputLines = input.readLine()) != null && !inputLines.isEmpty()){
+          requestHeader.append("<LI>").append(inputLines).append("</LI>");
         }
 
         // Send the response to the client
@@ -57,9 +59,9 @@ public class WebServer {
         output.println("</ul>");
         output.println("</body></html>");
 
-        /*
+
         // Uncomment to keep the thread and connection open
-        while (true) {
+        /*while (true) {
         }*/
 
       } catch (Exception e){
@@ -67,7 +69,7 @@ public class WebServer {
       } finally {
         try {
           clientSocket.close();
-          System.out.println("Client disconnected: " + clientSocket + "\n");
+          System.out.println("Oving3.Client disconnected: " + clientSocket + "\n");
         } catch (IOException e) {
           e.printStackTrace();
           }

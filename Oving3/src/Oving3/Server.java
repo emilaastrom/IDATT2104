@@ -1,3 +1,5 @@
+package Oving3;
+
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -13,25 +15,29 @@ public class Server {
     @Override
     public void run() {
       try{
+      System.out.println("Oving3.Client: "  + clientSocket + "\nAssigned thread: " +  Thread.currentThread());
       BufferedReader input = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
       PrintWriter output = new PrintWriter(clientSocket.getOutputStream(), true);
 
       // Receive input from the client
-      String clientInput = input.readLine();
+      while(true){
+        String clientInput = input.readLine();
 
-      // Exit condition
-      if (clientInput.equalsIgnoreCase("exit")) {
-        System.out.println("\nClient requested disconnect.");
-        System.out.println("now what?");
+        // Exit condition
+        if (clientInput.equalsIgnoreCase("exit")) {
+          System.out.println("\nOving3.Client requested disconnect.");
+          Thread.currentThread().interrupt();
+        }
+
+        // Process the math input and send the result back to the client
+        if (sillyMath(clientInput).equals("Not silly")) {
+          double result = math(clientInput);
+          output.println("SERVER: " + result);
+        } else {
+          output.println("SERVER: " + sillyMath(clientInput));
+        }
       }
 
-      // Process the math input and send the result back to the client
-      if (sillyMath(clientInput).equals("Not silly")) {
-        double result = math(clientInput);
-        output.println("SERVER: " + result);
-      } else {
-        output.println("SERVER: " + sillyMath(clientInput));
-      }
       } catch (IOException e) {
         e.printStackTrace();
       }
@@ -42,18 +48,18 @@ public class Server {
 
 
   public static void main(String[] args) throws IOException {
-    System.out.println("Server starting...");
+    System.out.println("Oving3.Server starting...");
     ServerSocket serverSocket = null;
     Socket clientSocket = null;
 
     try {
       // Create a server socket listening on a specific port
       serverSocket = new ServerSocket(5678);
-      System.out.println("Server started. Waiting for clients...");
+      System.out.println("Up and running, waiting for clients...\n");
 
       while (true) {
         clientSocket = serverSocket.accept();
-        System.out.println("Client connected: " + clientSocket + "\n");
+        System.out.println("Oving3.Client connected: " + clientSocket + "\n");
         System.out.println(clientSocket.getInetAddress().getHostAddress() + ":" + clientSocket.getPort() + "\n");
 
         Thread clientThread = new Thread(new ClientHandler(clientSocket));
@@ -64,7 +70,7 @@ public class Server {
     } catch (IOException e) {
       e.printStackTrace();
     } finally {
-      System.out.println("Server shutting down...");
+      System.out.println("Oving3.Server shutting down...");
       assert clientSocket != null;
       clientSocket.close();
       serverSocket.close();
@@ -88,6 +94,8 @@ public class Server {
   public static double math(String input) {
 
     String[] arr = input.split("(?<=[+\\-*/])|(?=[+\\-*/])");
+
+    System.out.println("Array in math func: " + Arrays.toString(arr));
 
     if (arr.length != 3) {
       System.err.println("Invalid input format");

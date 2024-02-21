@@ -1,3 +1,5 @@
+package Oving3;
+
 import java.io.*;
 import java.net.Socket;
 
@@ -8,19 +10,18 @@ public class Client {
     String host = "127.0.0.1";
     int serverPort = 5678;
 
-    BufferedReader userInput = new BufferedReader(new InputStreamReader(System.in));
-
     try (Socket socket = new Socket(host, serverPort);){
+      BufferedReader userInput = new BufferedReader(new InputStreamReader(System.in));
       BufferedReader ois = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-      PrintWriter oos = new PrintWriter(socket.getOutputStream(), true);
+      PrintWriter oos = new PrintWriter(socket.getOutputStream(), false);
       while (true) {
         // Read user input
         System.out.print("CLIENT: Enter math expression (or 'exit' to quit): ");
         String userInputString = userInput.readLine();
-        oos.println(userInputString);
 
         // Send input to the server
-        oos.write(userInputString);
+        oos.println(userInputString);
+        oos.flush();
 
         // Check if there was an error while sending
         if (oos.checkError()) {
@@ -41,6 +42,6 @@ public class Client {
     } catch (Exception e) {
       e.printStackTrace();
     }
-    System.out.println("Client shutting down...");
+    System.out.println("Oving3.Client shutting down...");
   }
 }
