@@ -12,12 +12,11 @@ public class Server4 {
     boolean running = true;
 
     ds = new DatagramSocket(5679);
-    System.out.println("DatagramSocket created, local:" + ds.getLocalAddress() + " - " + ds.getLocalPort());
+    System.out.println("DatagramSocket created, port:" + ds.getLocalPort());
     DatagramPacket dp;
 
     while (running) {
       dp = new DatagramPacket(byteArray, byteArray.length);
-      System.out.println("DatagramPacket created");
 
       ds.receive(dp);
       System.out.println("Client: " + data(byteArray));
@@ -67,7 +66,6 @@ public class Server4 {
 
     String[] arr = input.split("(?<=[+\\-*/])|(?=[+\\-*/])");
 
-    System.out.println("Array in math func: " + Arrays.toString(arr));
 
     if (arr.length != 3) {
       System.err.println("Invalid input format");
@@ -88,9 +86,7 @@ public class Server4 {
       case "/":
         if (b != 0) return a / b;
       default:
-        System.err.println("Unhandled error in math()");
-        System.out.println("INPUT: " + arr.toString());
-        return -1; // or throw an exception
+        throw new Error("Issue regarding: " + arr.toString());
     }
   }
 
