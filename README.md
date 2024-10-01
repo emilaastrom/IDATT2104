@@ -6,6 +6,3 @@
 2. Asynkrone kall - Workers & Event-loops
 3. Sockets + Web-tjener
 4. UDP + TLS
-5. ...
-
-### (WIP)
